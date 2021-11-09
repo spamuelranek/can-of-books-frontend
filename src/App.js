@@ -21,8 +21,6 @@ class App extends React.Component {
     }
   }
 
-
-
   loginHandler = (user) => {
     this.setState({
       user,
@@ -41,7 +39,7 @@ class App extends React.Component {
         <Router>
           <Header user={this.state.user} onLogout={this.logoutHandler} />
           <Switch>
-            <Route exact path="/home">
+            <Route exact path="/">
               {this.state.user ? <BestBooks/> : <Login loginHandler = {this.loginHandler}/>}
             </Route>
             <Route exact path = '/profile'>
