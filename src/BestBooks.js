@@ -1,47 +1,28 @@
 import React from 'react';
-import axios from 'axios';
-import Carousel from 'react-bootstrap/Carousel';
 
+import Carousel from 'react-bootstrap/Carousel';
+import CarouselCard from './CarouselCard';
 
 class BestBooks extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      books: []
-    }
-  }
-
-  getBooks = async () => {
-    let url = 'http://localhost:3001/books';
-    try {
-      const response = await axios.get(url);
-      this.setState({books: response.data});
-      console.log(this.state.books);
-    } catch (e) {
-      console.error(e.response.status);
-      }
-  }
-
+ 
   componentDidMount() {
-    this.getBooks();
-  }
+    this.props.getBooks();
+  } 
+  
 
   render() {
     return (
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
 
-        {this.state.books.length > 0 ? (
-          <Carousel>
+        {this.props.books.length > 0 ? (
+          <Carousel variant = 'dark'>
             {
-              this.state.books.map(book => {
+              this.props.books.filter(book => book.email === this.props.user.email).map(book => {
                 return (
-          <Carousel.Item>
-          <Carousel.Caption>
-              <h3>{book.title}</h3>
-              <p>{book.description}</p>
-            </Carousel.Caption>
-          </Carousel.Item>
+                  <Carousel.Item key = {book._id}>
+                  <CarouselCard book = {book} deleteBook = {this.props.deleteBook}/>
+                  </Carousel.Item>
              )
            })
           }

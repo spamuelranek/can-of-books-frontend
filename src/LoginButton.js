@@ -11,7 +11,7 @@ export default class LoginButton extends Component {
   }
 
   handleButton = () => {
-    this.setState({button: true})
+    this.setState({button: false})
   }
 
   render() {
