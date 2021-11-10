@@ -11,9 +11,8 @@ import {
   Route
 } from "react-router-dom";
 import BestBooks from './BestBooks';
-import { Button } from 'react-bootstrap';
 import axios from 'axios';
-
+import './app.css';
 
 
 class App extends React.Component {
@@ -44,10 +43,8 @@ class App extends React.Component {
     console.log(bookObj);
     try { 
       let response = await axios.post(url, bookObj);
-      console.log(response.data);
-      let newBookArray = this.state.books.push(response.data);
       console.log(this.state.books);
-      this.setState({books: newBookArray});
+      this.setState({books: [...this.state.books, response.data]});
       console.log(this.state.books); 
     } catch(e) {
       console.log(e);
@@ -55,8 +52,20 @@ class App extends React.Component {
     }
   }
 
+  deleteBook = async (id) => {
+    const url = `${process.env.REACT_APP_SERVER_URL}/books/${id}?email=${this.state.user.email}`;
+    console.log(url);
+    try {
+      await axios.delete(url);
+      let modifiedBooks = this.state.books.filter(book => book._id !== id);
+      this.setState({books: modifiedBooks});
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   getBooks = async () => {
-    let url = 'http://localhost:3001/books';
+    let url = `${process.env.REACT_APP_SERVER_URL}/books`;
     try {
       const response = await axios.get(url);
       this.setState({books: response.data});
@@ -73,7 +82,7 @@ class App extends React.Component {
           <Header user={this.state.user} onLogout={this.logoutHandler}/>
           <Switch>
             <Route exact path="/">
-              {this.state.user ? <BestBooks books = {this.state.books} getBooks = {this.getBooks}/> : <Login loginHandler = {this.loginHandler}/>}
+              {this.state.user ? <BestBooks user = {this.state.user} deleteBook = {this.deleteBook} books = {this.state.books} getBooks = {this.getBooks}/> : <Login loginHandler = {this.loginHandler}/>}
             </Route>
             <Route exact path = '/profile'>
               <Profile user = {this.state.user}/>

@@ -1,13 +1,14 @@
 import React from 'react';
-import axios from 'axios';
-import Carousel from 'react-bootstrap/Carousel';
 
+import Carousel from 'react-bootstrap/Carousel';
+import CarouselCard from './CarouselCard';
 
 class BestBooks extends React.Component {
  
   componentDidMount() {
     this.props.getBooks();
-  }
+  } 
+  
 
   render() {
     return (
@@ -15,20 +16,13 @@ class BestBooks extends React.Component {
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
 
         {this.props.books.length > 0 ? (
-          <Carousel>
+          <Carousel variant = 'dark'>
             {
-              this.props.books.map(book => {
+              this.props.books.filter(book => book.email === this.props.user.email).map(book => {
                 return (
-          <Carousel.Item key= {book._id}>
-            <img
-            className = 'd-block w-75'
-            src = "http://via.placeholder.com/150"
-            alt = {book.title}/>
-          <Carousel.Caption>
-              <h3>{book.title}</h3>
-              <p>{book.description}</p>
-            </Carousel.Caption>
-          </Carousel.Item>
+                  <Carousel.Item key = {book._id}>
+                  <CarouselCard book = {book} deleteBook = {this.props.deleteBook}/>
+                  </Carousel.Item>
              )
            })
           }
