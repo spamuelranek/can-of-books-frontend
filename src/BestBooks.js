@@ -4,26 +4,9 @@ import Carousel from 'react-bootstrap/Carousel';
 
 
 class BestBooks extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      books: []
-    }
-  }
-
-  getBooks = async () => {
-    let url = 'http://localhost:3001/books';
-    try {
-      const response = await axios.get(url);
-      this.setState({books: response.data});
-      console.log(this.state.books);
-    } catch (e) {
-      console.error(e.response);
-      }
-  }
-
+ 
   componentDidMount() {
-    this.getBooks();
+    this.props.getBooks();
   }
 
   render() {
@@ -31,10 +14,10 @@ class BestBooks extends React.Component {
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
 
-        {this.state.books.length > 0 ? (
+        {this.props.books.length > 0 ? (
           <Carousel>
             {
-              this.state.books.map(book => {
+              this.props.books.map(book => {
                 return (
           <Carousel.Item key= {book._id}>
             <img
