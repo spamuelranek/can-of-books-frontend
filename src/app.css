@@ -4,4 +4,10 @@
 
 .carousel-button {
     margin-left: 46%;
+    display: block;
+    z-index: 10;
+}
+
+.buttonDiv {
+   margin-top: 50px;
 }

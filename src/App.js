@@ -14,7 +14,6 @@ import BestBooks from './BestBooks';
 import axios from 'axios';
 import './app.css';
 
-
 class App extends React.Component {
 
   constructor(props) {
@@ -27,7 +26,7 @@ class App extends React.Component {
 
   loginHandler = (user) => {
     this.setState({
-      user,
+      user
     })
   }
 
@@ -48,7 +47,7 @@ class App extends React.Component {
       console.log(this.state.books); 
     } catch(e) {
       console.log(e);
-
+      
     }
   }
 
