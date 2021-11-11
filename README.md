@@ -43,12 +43,62 @@ Sam Panek
 
 For each of the lab features, make an estimate of the time it will take you to complete the feature, and record your start and finish times for that feature:
 
-Name of feature: ________________________________
+## Name of feature: Set up Repo's
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: 1 hour
 
-Start time: _____
+Start time: 3:00
 
-Finish time: _____
+Finish time: 5:00
 
-Actual time needed to complete: _____
+Actual time needed to complete: 2 hours
+
+## Name of feature: Storage
+
+Estimate of time needed to complete: 2 hours
+
+Start time: 5:00
+
+Finish time: 10:00
+
+Actual time needed to complete: 3 hours
+
+## Name of feature: Front book Component
+
+Estimate of time needed to complete: 2 hours
+
+Start time: 10:00
+
+Finish time: 1:00am
+
+Actual time needed to complete: 3 hours
+
+## Name of feature: Create
+
+Estimate of time needed to complete: 3 hours
+
+Start time: 1:00
+
+Finish time: 6:00
+
+Actual time needed to complete: 5 hours
+
+## Name of feature: Delete
+
+Estimate of time needed to complete: 3 hours
+
+Start time: 8:00
+
+Finish time: 11:30
+
+Actual time needed to complete: 3.5 hours
+
+## Name of feature: Update
+
+Estimate of time needed to complete: 3 hours
+
+Start time: 2:00
+
+Finish time: 9:00
+
+Actual time needed to complete: 6 hours
