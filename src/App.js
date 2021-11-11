@@ -14,20 +14,18 @@ import BestBooks from './BestBooks';
 import axios from 'axios';
 import './app.css';
 
-
 class App extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
       user: null,
-      books: [],
     }
   }
 
   loginHandler = (user) => {
     this.setState({
-      user,
+      user
     })
   }
 
@@ -41,12 +39,12 @@ class App extends React.Component {
     const url = `${process.env.REACT_APP_SERVER_URL}/books`;
     console.log(url);
     console.log(bookObj);
-    try { 
+    try {
       let response = await axios.post(url, bookObj);
       console.log(this.state.books);
-      this.setState({books: [...this.state.books, response.data]});
-      console.log(this.state.books); 
-    } catch(e) {
+      this.setState({ books: [...this.state.books, response.data] });
+      console.log(this.state.books);
+    } catch (e) {
       console.log(e);
 
     }
@@ -58,37 +56,27 @@ class App extends React.Component {
     try {
       await axios.delete(url);
       let modifiedBooks = this.state.books.filter(book => book._id !== id);
-      this.setState({books: modifiedBooks});
+      this.setState({ books: modifiedBooks });
     } catch (error) {
       console.log(error);
     }
   }
 
-  getBooks = async () => {
-    let url = `${process.env.REACT_APP_SERVER_URL}/books`;
-    try {
-      const response = await axios.get(url);
-      this.setState({books: response.data});
-      console.log(this.state.books);
-    } catch (e) {
-      console.error(e.response);
-      }
-  }
 
   render() {
     return (
       <>
         <Router>
-          <Header user={this.state.user} onLogout={this.logoutHandler}/>
+          <Header user={this.state.user} onLogout={this.logoutHandler} />
           <Switch>
             <Route exact path="/">
-              {this.state.user ? <BestBooks user = {this.state.user} deleteBook = {this.deleteBook} books = {this.state.books} getBooks = {this.getBooks}/> : <Login loginHandler = {this.loginHandler}/>}
+              {this.state.user ? <BestBooks user={this.state.user} deleteBook={this.deleteBook} books={this.state.books} /> : <Login loginHandler={this.loginHandler} />}
             </Route>
-            <Route exact path = '/profile'>
-              <Profile user = {this.state.user}/>
+            <Route exact path='/profile'>
+              <Profile user={this.state.user} />
             </Route>
           </Switch>
-          {this.state.user ? <BookFormModal postBook = {this.postBook} user = {this.state.user} closeModal = {this.closeModal}/> : false}
+          {this.state.user ? <BookFormModal postBook={this.postBook} user={this.state.user} closeModal={this.closeModal} /> : false}
           <Footer />
         </Router>
       </>
