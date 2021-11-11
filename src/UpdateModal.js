@@ -30,17 +30,18 @@ export default class UpdateModal extends Component {
         console.log(book);
         let id = this.props.modalId._id;
         this.updateBook(id, book, email);
-        this.props.getBooks();
         this.props.closeModal();
     }
-
+    
     updateBook = async (id, book, email) => {
         let url = `${process.env.REACT_APP_SERVER_URL}/books/${id}?email=${email}`
         console.log(url);
         try {
-            let updatedBook = await axios.put(url, book);
-            console.log(updatedBook);
-        } catch (e) {
+            let updatedBook = await axios.put(url, book)
+            this.props.getBooks();
+                console.log(updatedBook);
+        }
+         catch (e) {
             console.log(e); 
         } 
     }

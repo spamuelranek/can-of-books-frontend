@@ -22,7 +22,7 @@ export default class Cards extends Component {
                 src = "http://via.placeholder.com/150"
                 alt = {this.props.book.title}/>
                 <Carousel.Caption>
-                    <h3>{this.props.book._id} {this.props.book.title}</h3>
+                    <h3>{this.props.book.title}</h3>
                     <p>{this.props.book.description}</p>
                 <div className = 'buttonDiv'>
                 <button className = 'carousel-button' onClick = {this.clickDelete}>Remove Book</button>
