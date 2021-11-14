@@ -1,12 +1,13 @@
+import { withAuth0 } from '@auth0/auth0-react';
 import {Component} from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-export default class BookFormModal extends Component {
+class BookFormModal extends Component {
 
-    constructor(props) {
-        super(props)
-        this.state = {button: true};
+constructor(props) {
+    super(props)
+    this.state = {button: true};
     }
     
     handleSubmit = (e) => {
@@ -14,7 +15,7 @@ export default class BookFormModal extends Component {
         let title = e.target.addBook[0].value;
         let description = e.target.addBook[1].value;
         let status = e.target.addBook[2].value;
-        let email = this.props.user.email;
+        let email = this.props.auth0.user.email;
         let book = {title,description,status,email};
         this.props.postBook(book);
         this.closeModal();
@@ -49,5 +50,6 @@ export default class BookFormModal extends Component {
           </>
         )
     }
-
 }
+
+export default withAuth0(BookFormModal);

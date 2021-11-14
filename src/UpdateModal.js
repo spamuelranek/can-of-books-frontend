@@ -25,7 +25,7 @@ export default class UpdateModal extends Component {
         let title = this.hasContent(e.target.updateBook[0].value);
         let description = this.hasContent(e.target.updateBook[1].value);
         let status = this.hasContent(e.target.updateBook[2].value);
-        let email = this.props.user.email;
+        let email = this.props.userEmail;
         let book = { title, description, status, email };
         console.log(book);
         let id = this.props.modalId._id;

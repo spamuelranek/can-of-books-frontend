@@ -14,7 +14,6 @@ export default class Cards extends Component {
         this.props.deleteBook(this.props.book._id);
     }
 
-
     render() {
         return (
            <>

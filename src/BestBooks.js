@@ -2,6 +2,7 @@ import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import Cards from './Cards.js';
 import UpdateModal from './UpdateModal.js';
+import {withAuth0} from '@auth0/auth0-react';
 
 class BestBooks extends React.Component {
 
@@ -29,13 +30,13 @@ class BestBooks extends React.Component {
     return (
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
-        {this.props.books.filter(book => book.email === this.props.user.email).length > 0  ? (
+        {this.props.books.filter(book => book.email === this.props.auth0.user.email).length > 0  ? (
           <Carousel variant='dark'>
             {
-              this.props.books.filter(book => book.email === this.props.user.email).map(book => {
+              this.props.books.filter(book => book.email === this.props.auth0.user.email).map(book => {
                 return (
                   <Carousel.Item key={book._id}>
-                    <Cards openModal = {this.openModal} user={this.props.user} book={book} deleteBook={this.props.deleteBook} />
+                    <Cards openModal = {this.openModal} book={book} deleteBook={this.props.deleteBook} />
                   </Carousel.Item>  
                 )
               })
@@ -44,10 +45,10 @@ class BestBooks extends React.Component {
         ) : (
           <h3>Book collection is empty(</h3>
         )}
-        <UpdateModal updateBook = {this.props.updateBook} getBooks = {this.props.getBooks} user = {this.props.user} modalId = {this.state.modalId} closeModal = {this.closeModal} show = {this.state.show}/> 
+        <UpdateModal updateBook = {this.props.updateBook} getBooks = {this.props.getBooks} userName = {this.props.auth0.user.name} userEmail = {this.props.auth0.user.email} modalId = {this.state.modalId} closeModal = {this.closeModal} show = {this.state.show}/> 
       </>
     )
   }
 }
 
-export default BestBooks;
+export default withAuth0(BestBooks);
