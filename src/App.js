@@ -1,7 +1,6 @@
 import React from 'react';
-import Header from './Header';
-import Footer from './Footer';
-import Login from './Login';
+import Header from './Header.js';
+import Footer from './Footer.js';
 import Profile from './Profile';
 import BookFormModal from './BookFormModal.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,15 +9,18 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import BestBooks from './BestBooks';
+import BestBooks from './BestBooks.js';
 import axios from 'axios';
 import './app.css';
+import {withAuth0} from '@auth0/auth0-react';
+import LoginButton0 from './loginButton0.js';
 
 class App extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      show: true,
       user: null,
       books: []
     }
@@ -44,7 +46,7 @@ class App extends React.Component {
       this.setState({books: response.data});
     } catch (e) {
       console.error(e.response);
-      }
+    }
   }
 
   postBook = async (bookObj) => {
@@ -58,12 +60,11 @@ class App extends React.Component {
       
     } catch (e) {
       console.log(e);
-
     }
   }
 
   deleteBook = async (id) => {
-    const url = `${process.env.REACT_APP_SERVER_URL}/books/${id}?email=${this.state.user.email}`;
+    const url = `${process.env.REACT_APP_SERVER_URL}/books/${id}?email=${this.props.auth0.user.email}`;
     console.log(url);
     try {
       await axios.delete(url);
@@ -83,13 +84,13 @@ class App extends React.Component {
           <Header user={this.state.user} onLogout={this.logoutHandler} />
           <Switch>
             <Route exact path="/">
-              {this.state.user ? <BestBooks user={this.state.user} getBooks ={this.getBooks} deleteBook={this.deleteBook} books={this.state.books} /> : <Login loginHandler={this.loginHandler} />}
+              {this.props.auth0.isAuthenticated ? <BestBooks user={this.state.user} getBooks ={this.getBooks} deleteBook={this.deleteBook} books={this.state.books} /> : <LoginButton0/>}
             </Route>
             <Route exact path='/profile'>
               <Profile user={this.state.user} />
             </Route>
           </Switch>
-          {this.state.user ? <BookFormModal postBook={this.postBook} user={this.state.user} closeModal={this.closeModal} /> : false}
+          {this.props.auth0.isAuthenticated ? <BookFormModal postBook={this.postBook} user={this.state.user} closeModal={this.closeModal} /> : false}
           <Footer />
         </Router>
       </>
@@ -97,4 +98,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withAuth0(App);

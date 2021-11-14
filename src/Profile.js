@@ -1,4 +1,5 @@
 import { Component } from "react";
+import {withAuth0} from '@auth0/auth0-react';
 
 class Profile extends Component {
 
@@ -8,8 +9,8 @@ class Profile extends Component {
       <>
       {this.props.user ?
       <div>
-        <p>{this.props.user.userName}</p>
-        <p>{this.props.user.email}</p>
+        <p>{this.props.auth0.user.name}</p>
+        <p>{this.props.auth0.user.email}</p>
       </div>
       :false}
       </>
@@ -17,4 +18,4 @@ class Profile extends Component {
   }
 };
 
-export default Profile;
+export default withAuth0(Profile);
